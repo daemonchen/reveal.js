@@ -1,0 +1,527 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <title>前端工程化-基础篇</title>
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <ul>
+                        <li>前端工程化-基础篇</li>
+                        <li>React Native概述：背景、规划和风险</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>前端工程化-基础篇</h2>
+                    <ul>
+                        <li>第一阶段：库/框架选型</li>
+                        <li>第二阶段：简单构建优化</li>
+                        <li>第三阶段：JS/CSS模块化开发</li>
+                        <li>第四阶段：组件化开发与资源管理</li>
+                        <li>第五阶段：基于product/infrastructure的全栈开发</li>
+                    </ul>
+                </section>
+                <section data-background="#fff" style='color:#333;'>
+                    <h3>前端，是一种GUI软件</h3>
+                    <img height="238" data-src="img/web_gui.png" alt="">
+                    <p>大部分人认为前端就是html css jquery，那是上世代的前端。但这样的前端目前仍然是主流需求</p>
+                </section>
+                <section>
+                    <h3>库/框架选型</h3>
+                    <img data-src="img/libs.png" alt="">
+                    <p>基本上现在没有人完全从0开始做网站，哪怕是政府项目用个jquery都很正常吧，React/Angularjs等框架横空出世，解放了不少生产力，合理的技术选型可以为项目节省许多工程量这点毋庸置疑</p>
+                </section>
+                <section>
+                    <section>
+                        <h3>简单构建优化</h3>
+                        <img data-src="img/tools.png" alt="">
+                        <p>新世代的前端的一个基本特征是引入了build system。以前这种东西跟web毫无关系。但随着复杂度的越来越高，没有build的脚本支持已经难以管理复杂度了。诸如gulp grunt webpack 或者 browerify</p>
+                    </section>
+                    <section>
+                        <p>前端开发工程化程度之低，常常出乎我的意料，查看网上形形色色的网页源代码，能做到最基本的JS/CSS压缩的Web应用都已跨入标准互联网公司行列，不难理解为什么很多前端团队对于前端工程构建的认知还仅停留在“压缩、校验、合并”这种程度。</p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>JS/CSS模块化开发</h3>
+                        <img data-src="img/libs-2.png" alt="">
+                        <p>下一个世代是lib的repo。这世代连bower都被淘汰了，npm一统天下。如果你还不明白systemjs amd commonjs requirejs等加载系统的话，如上。同理，这也是复杂度决定的</p>
+                    </section>
+                    <section>
+                        <p>分而治之是软件工程中的重要思想，是复杂系统开发和维护的基石，这点放在前端开发中同样适用。在解决了基本开发效率运行效率问题之后，前端团队开始思考维护效率，模块化是目前前端最流行的分治手段</p>
+                    </section>
+                    <section>
+                        <h3>JS模块化方案</h3>
+                        <p>AMD/CommonJS/UMD/ES6 Module等，对应的框架和工具也一大堆</p>
+                        <h3>CSS模块化开发</h3>
+                        <p>基本都是在less、sass、stylus等预处理器的import/mixin特性支持下实现的。</p>
+                    </section>
+                    <section>
+                        <p>虽然这些技术由来已久，在如今这个“言必及React”的时代略显落伍，但想想业界的绝大多数团队的工程化落后程度，放眼望去，毫不夸张的说，能达到第三阶段的前端团队已属于高端行列，基本具备了开发维护一般规模Web应用的能力。</p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>组件化开发与资源管理</h3>
+                        <p>分治的确是非常重要的工程优化手段。在我看来，前端作为一种GUI软件，光有JS/CSS的模块化还不够，对于UI组件的分治也有着同样迫切的需求</p>
+                    </section>
+                    <section>
+                        <img data-src="img/components.png" alt="">
+                    </section>
+                    <section>
+                        <ul>
+                            <li>页面上的每个 独立的 可视/可交互区域视为一个组件</li>
+                            <li>每个组件对应一个工程目录，组件所需的各种资源都在这个目录下就近维护</li>
+                            <li>由于组件具有独立性，因此组件与组件之间可以 自由组合</li>
+                            <li>页面只不过是组件的容器，负责组合组件形成功能完整的界面</li>
+                            <li>当不需要某个组件，或者想要替换组件时，可以整个目录删除/替换</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>很明显，模块化/组件化开发之后，我们最终要解决的，就是模块/组件加载的技术问题</p>
+                    </section>
+                    <section>
+                        <p>前端应用没有安装过程，其所需程序资源都部署在远程服务器，用户使用浏览器访问不同的页面来加载不同的资源，随着页面访问的增加，渐进式的将整个程序下载到本地运行，“增量下载”是前端在工程上有别于客户端GUI软件的根本原因。</p>
+                    </section>
+                    <section data-background='#fff'>
+                        <img data-src='img/gui.gif' />
+                    </section>
+                    <section>
+                        <p>由“增量”原则引申出的前端优化技巧几乎成为了性能优化的核心，有加载相关的按需加载、延迟加载、预加载、请求合并等策略；有缓存相关的浏览器缓存利用，缓存更新、缓存共享、非覆盖式发布等方案；还有复杂的BigRender、BigPipe、Quickling、PageCache等技术。这些优化方案无不围绕着如何将增量原则做到极致而展开</p>
+
+                    </section>
+                    <section>
+                        <p>Facebook是这方面探索的伟大先驱之一，早在2010年的Velocity China大会上，来自Facebook的David Wei博士就为业界展示了他们令人惊艳的静态网页资源管理和优化技术。</p>
+                    </section>
+                    <section>
+                        <p>David Wei博士在当年的交流会上提到过一些关于Facebook的一些产品数据：</p>
+                        <ul>
+                            <li>Facebook整站有10000+个静态资源；</li>
+                            <li>每个静态资源都有可能被翻译成超过100种语言版本</li>
+                            <li>每种资源又会针对浏览器生成3种不同的版本；</li>
+                            <li>要针对不同带宽的用户做5种不同的打包方法；</li>
+                            <li>有3、4个不同的用户组，用于小批次体验新的产品功能；</li>
+                            <li>还要考虑不同的送达方法，可以直接送达，或者通过iframe的方式提升资源并行加载的速度；</li>
+                            <li>静态资源的压缩和非压缩状态可切换，用于调试和定位线上问题</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>它是通过一个小工具扫描所有静态资源，生成一张资源表，然后有一个PHP实现的资源管理框架（Celerity）提供了资源加载接口，替代了传统的script/link等静态的资源加载标签，最终通过查表来加载资源。</p>
+                    </section>
+                    <section>
+                        <pre>
+                            <code>{
+    "a.js": {
+        "url": "/static/js/a.5f100fa.js",
+        "dep": [ "b.js", "a.css" ]
+    },
+    "a.css": {
+        "url": "/static/css/a.63cf374.css",
+        "dep": [ "button.css" ]
+    },
+    "b.js": {
+        "url": "/static/js/b.97193bf.js"
+    },
+    "button.css": {
+        "url": "/static/css/button.de33108.css"
+    }
+}</code>
+                        </pre>
+                    </section>
+                    <section data-background='#fff'>
+                        <img data-src="img/srms.png" alt="">
+                    </section>
+                </section>
+                <section>
+                    <h3>基于product/infrastructure的全栈开发</h3>
+                    <ul>
+                        <li><h3>接口服务化</h3></li>
+                        <li class="pull-down"><h3>代码模块化</h3></li>
+                        <li class="pull-down"><h3>功能组件化</h3></li>
+                    </ul>
+                </section>
+                <section>
+                    <section>
+                        <p>全栈的前提： product/infrastructure 和开放的文化。最有效率的方式始终是——让每个人发挥他（她）自己最大的潜能。所有组织/流程、职位/工种的限定，是为了更好的协作，而不应该限制人能力的发挥</p>
+                        <p>技术架构上前后端分离，但不是组织／流程／工种的分离</p>
+                    </section>
+                    <section>
+                        <p>
+                            在 Facebook 我们不分前端和后端，只分 product 和 infrastructure。做 product 的通常都是 full stack，不需要对特定的技术非常精通，但要求学习能力和灵活性足够好，不能只做自己 comfort zone 以内的事情，do whatever it takes to get your product shipped。通常聪明的应届生都会先进入 product，因为他们学什么都很快，也不会说浪费了在某个领域的积累。infrastructure 拥有更多各个领域的 specialist，前端只是其中之一。infrastructure 的客户就是 product，要做的事情就是让 product 开发实际产品时觉得爽，就这么简单。
+                        </p>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>后端MVC时代</h3>
+                        <img data-src="img/back-end-mvc.png" alt="">
+                    </section>
+                    <section>
+                        <h3>传统认知上的前后端</h3>
+                        <img data-src="img/work-mode-1.png" alt="">
+                    </section>
+                    <section>
+                        <img data-src="img/everything-in-mind.png" alt="">
+                    </section>
+                    <section>
+                        <h3>前端代码越来越复杂</h3>
+                        <ul>
+                            <li>无法统一协作模式，代码充满了约定</li>
+                            <li>JS跟CSS，依赖后端产出的HTML</li>
+                            <li>有的数据來自AJAX，有的数据印在DOM上</li>
+                            <li>前后端依旧高度耦合</li>
+                            <li>沟通成本高</li>
+                            <li>职责不清晰</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Node.js</h3>
+                        <p>我们有机会从工作职责上
+重新定义前后端的分层</p>
+                        <ul>
+                            <li>前端熟悉的语言，學習成本低</li>
+                            <li>都是JS，可以前后端复用</li>
+                            <li>体质适合：事件驱动、非阻塞I/O</li>
+                            <li>适合IO密集型业务</li>
+                            <li>执行速度也不差</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <table class="pull-down w100" style="font-size:75%;">
+                            <thead>
+                                <tr><th class="center"><h3>后端</h3></th><th colspan="2" class="center"><h3>前端</h3></th></tr>
+                                <tr><th colspan="2" class="center">服务器</th><th class="center">浏览器</th></tr>
+                                <tr><th class="center">JAVA</th><th class="center">NodeJS</th><th class="center">JS + HTML + CSS</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="vertical-align: top;">
+                                        <ul>
+                                            <li>服务层</li>
+                                            <li>提供数据接口</li>
+                                            <li>维持数据稳定</li>
+                                            <li>封装业务逻辑</li>
+                                        </ul>
+                                    </td>
+                                    <td style="vertical-align: top;">
+                                        <ul>
+                                            <li>跑在<strong class="strong">服务器</strong>上的JS</li>
+                                            <li>转发数据，串接服务</li>
+                                            <li>路由设计，控制逻辑</li>
+                                            <li>渲染页面，体验优化</li>
+                                            <li>更多的可能</li>
+                                        </ul>
+                                    </td>
+                                    <td style="vertical-align: top;">
+                                        <ul>
+                                            <li>跑在<strong class="strong">浏览器</strong>上的JS</li>
+                                            <li>CSS、JS加載与运行</li>
+                                            <li>DOM操作</li>
+                                            <li>任何的前端框架与工具</li>
+                                            <li>共用模版、路由</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>服务化</h3>
+                    </section>
+                    <section class="present" style="top: -139px; display: block;">
+                        <h3>接口规范</h3>
+                        <ul>
+                            <li>基于 <a href="http://json-schema.org/">JSON Schema</a></li>
+                            <li>增强 在 请求与返回 的 <strong class="strong">条件描述</strong></li>
+                            <li>扩展 <strong class="strong">format</strong> ，增加业务定义</li>
+                        </ul>
+                    </section>
+                    <section class="present" style="top: -159.5px; display: block;">
+                        <h3>接口管理平台</h3>
+                        <ul>
+                            <li>自动化管理文档，提供以下功能</li>
+                            <li><strong class="strong">版本</strong>管理 - 比较, 合并, 历史记录</li>
+                            <li>应用<strong class="strong">发布</strong> - 应用灰度, 应用回滚</li>
+                            <li>接口<strong class="strong">验证</strong> - 格式验证, 回归测试</li>
+                        </ul>
+                    </section>
+                    <section class="present" style="top: -159.5px; display: block;">
+                        <h3>接口模拟</h3>
+                        <ul>
+                            <li>透过 <strong class="strong">接口定义</strong> 产生 <strong class="strong">模拟数据</strong></li>
+
+                            <li>前端不需等待后端的接口，即可开始开发业务</li>
+                            <li>基于不同条件产生模拟数据，测试 <strong class="strong">边界情况</strong></li>
+                            <li>后端的接口必须通过接口验证，降低 <strong class="strong">联调成本</strong></li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h3>模块化</h3>
+                    </section>
+                    <section class="present" style="top: -205.5px; display: block;">
+                        <h3>Everything is Module</h3>
+
+                        <table class="pull-down put-center">
+                            <tbody><tr><td>Model</td><td>Helper</td><td>Utility</td></tr>
+                            <tr><td>View</td><td>CSS</td><td>DOM Event</td></tr>
+                            <tr><td>Controller</td><td>Route</td><td>etc...</td></tr>
+                            <tr><td colspan="3">Other Libraries, ...</td></tr>
+                        </tbody></table>
+
+                    </section>
+                    <section class="present" style="top: -196.5px; display: block;">
+                        <h3>前后端复用</h3>
+                        <ul class="pull-down">
+                            <li>透过一致的模块规范，加上都是用JS编写</li>
+                            <li><strong class="strong">模版</strong>可重用在浏览器端与服务器端</li>
+                            <li><strong class="strong">模型与方法</strong>可重用在浏览器端与服务器端</li>
+                            <li><strong class="strong">控制与路由</strong>可重用在浏览器端与服务器端</li>
+                            <li>或是更多的可能</li>
+                        </ul>
+                    </section>
+                </section>
+                <section class="stack present" style="top: 0px; display: block;" data-previous-indexv="1">
+                    <section style="top: -83.5px; display: block;" class="present">
+                        <h2>组件化</h2>
+                    </section>
+
+                    <section class="future" style="top: -101px; display: block;" hidden="">
+                        <h3>封装</h3>
+                        <p>把细粒度的模块封装成应付业务需求的组件</p>
+                    </section>
+
+                    <section class="future" style="top: -101px; display: block;" hidden="">
+                        <h3>组合</h3>
+                        <p>挑选不同的组件，完成实际的应用</p>
+                    </section>
+
+                    <section class="future" style="top: -183.5px; display: block;" hidden="">
+                        <h3>多型</h3>
+                        <p>针对不同环境，<strong class="strong">单一组件</strong> 可具备 <strong class="strong">不同型态</strong></p>
+                        <p class="pull-down">同一组件在不同环境下可以有不同的行为</p>
+                        <p class="pull-down strong fragment" data-fragment-index="0">但是共用同样的逻辑</p>
+                    </section>
+
+                    <section class="future" style="top: -222px; display: none;" hidden="">
+                        <h3>例如一个地址选择器</h3>
+                        <br>
+                        <div class="fragment" data-fragment-index="0">
+                            <p>在不同的设备：pc, mobile, pad, tv</p>
+                            <p>不同的环境：browser, native app, hybrid app上</p>
+                        </div>
+
+                        <br>
+                        <div class="fragment" data-fragment-index="1">
+                            <p>有著不一样的呈现结构，不一样的交互方式。</p>
+                            <p>但有著一样的校验逻辑，共用同样的数据接口。</p>
+                        </div>
+                    </section>
+
+                    <section class="future" style="top: -20px; display: none;" hidden="">
+                        <h3>如何办到？</h3>
+                        <br>
+                        <p>封装适合的组件。不同的场景组合不同的结果</p>
+                        <p>透过多型机制正确的输出</p>
+
+                        <br>
+                        <p>而且可以服务器、浏览器通用</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>天猫前端基础技术体系MAP</h3>
+                        <p>Node渲染服务也需要实现基于模块配置的依赖分析，生成combo uri，如果是native模块，则直接分析完依赖后，将模块内容拼接成一个大的脚本返回</p>
+
+                    </section>
+                    <section>
+                        <pre>
+                            <code>- build
+- src
+--- index-pc.js
+--- index.js
+--- index-native.js
+--- index-pc.less
+--- index.less
+--- schema.json
+--- seed.json</code>
+                        </pre>
+                    </section>
+                    <section data-background='#fff'>
+                        <img data-src="img/map-arch.png" alt="">
+                    </section>
+                    <section data-background='#fff'>
+                        <img data-src="img/fantastic-arch.png" alt="">
+                    </section>
+                </section>
+                <section>
+                    <h3>天猫斑马系统</h3>
+                    <p>斑马(页面搭建平台) 是一套让非技术人员也能自行搭建页面的 CMS 系统，基于Node实现，由天猫自主开发，此系统支持 PC/Mobile 页面，React Native 整入后，让页面搭建上同步产出 PC/Mobile/Native 版本。</p>
+                </section>
+                <section>
+                    <p>纵观前端的发展历程，基本上每隔18个月，其复杂度就增加一倍，前端涵盖的内容越来越多，覆盖的设备也越来越多，因此，react native的出现，更让前端如虎添翼。</p>
+                </section>
+                <section>
+                    <h2>React Native的设计理念：</h2>
+                    <h3>既拥有Native的用户体验、又保留React的开发效率</h3>
+                    <p>开源不到1周github star破万，目前是34000+</p>
+                </section>
+                <section>
+                    <p>Learn once, write anywhere</p>
+                    <img data-src="img/rn.png" alt="">
+                </section>
+                <section data-background='#fff'>
+                    <a href="http://facebook.github.io/react-native/showcase.html" title="">react native show case</a>
+                    <img data-src="img/showcase.png" alt="">
+                </section>
+                <section>
+                    <h3>jsx</h3>
+                    <pre>
+                        <code>var register = React.createClass({
+    getInitialState: function(){
+        return {
+            mobile: '',
+            type: 1
+        }
+    },
+    componentDidMount: function(){
+        this.unlisten = verifyCodeStore.listen(this.onChange)
+    },
+    componentWillUnmount: function() {
+        this.unlisten();
+    },
+    onChange: function() {
+        var result = verifyCodeStore.getState();
+        if (result.type != 'get') { return; };
+        if (result.status != 200 && !!result.message) {
+            util.toast(result.message);
+            return;
+        }
+        Actions.validationCode({validateType: 1});
+    },
+    getCode: function(){
+        if (!this.state.mobile || !/^1[3|4|5|6|7|8|9][0-9]\d{8}$/.test(this.state.mobile)) {
+            util.alert('请输入手机号码');
+            return;
+        };
+        verifyCodeAction.getVerifyCode({
+            mobile: this.state.mobile,
+            type: this.state.type
+        });
+    },
+    onChangeText: function(text){
+        this.setState({
+            mobile: text
+        });
+    },
+    onSubmitEditing: function(){
+        this.getCode();
+    },
+    render: function(){
+        return (
+            <View style={commonStyle.container}>
+                <NavigationBar
+                    tintColor="#f9f9f9"
+                    title={<NavTitleWithLogo />}
+                    leftButton={<LeftCloseButton />} />
+                <View style={[styles.main, {marginTop: 20}]}>
+                    <View style={commonStyle.textInputWrapper}>
+                        <TextInput placeholder='手机号码'
+                        style={commonStyle.textInput}
+                        clearButtonMode={'while-editing'}
+                        onChangeText={this.onChangeText}
+                        keyboardType={'number-pad'}
+                        returnKeyType={'next'}
+                        onSubmitEditing={this.onSubmitEditing}
+                        value={this.state.mobile} />
+                    </View>
+                    <Button
+                    style={commonStyle.blueButton}
+                    onPress={this.getCode} >
+                        获取验证码
+                    </Button>
+                </View>
+            </View>
+        );
+    }
+})</code>
+                    </pre>
+                </section>
+                <section>
+                    <section>
+                        <h2>规划</h2>
+                    </section>
+                    <section>
+                        <h2>风险</h2>
+                        <ul>
+                            <li>rn更新太快</li>
+                            <li>不确定苹果Appstore的政策是否有变</li>
+                            <li>2015年10月份才发布rn android，坑还是很多</li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <p>Facebook 的工程师哲学：工程师对世界的影响不止于公司的产品</p>
+                    <p>React和Immutable.js都是 Facebook 内部个人自主发起的项目</p>
+                    <p>在 Facebook，不仅仅让，更是鼓励，工程师做这些好玩的“实验”。其实这些项目还是存在一定风险的，而且也不是很吸引人，也常常失败（需要改）。</p>
+                    <p>沉淀我们自己的技术,你的报酬(面向薪资编程0-0)不是和你的劳动量成正比,而是和你劳动的不可替代性成正比。</p>
+                </section>
+                <section>
+                    <p>开阔视野，不要尽信专家，因为专家只是比你多拥有了一些资源和信息，而这些信息和资源，专家未必会完整的告诉你，因为专家也是人，是人，就都有私心。</p>
+                </section>
+                <section class="present" style="top: -110.5px; display: block;">
+                    <h1>Q &amp; A</h1>
+                </section>
+                <section>
+                    <h3>php是世界上最好的语言，但是javascript终将统一宇宙</h3>
+                    <p>欢迎所有童鞋，想要来趣趣ABC的，不管是java，php，前端还是其他任何职业，如果想跟我做前端，都欢迎</p>
+                </section>
+                <section class="present" style="top: -110.5px; display: block;">
+                    <h1>Thank You</h1>
+                </section>
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+            // More info https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                history: true,
+
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                dependencies: [
+                    { src: 'plugin/markdown/marked.js' },
+                    { src: 'plugin/markdown/markdown.js' },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+                ]
+            });
+        </script>
+    </body>
+</html>
